@@ -6,25 +6,44 @@ wid = 800
 hei = 600
 nameGame = "Óia a COBRA"
 dis = f.tela(wid, hei, nameGame)
-
-red = (219, 31, 31)
-blue = (56, 75, 255)
-
+##################################
 squareSz = 20
-circleRds = 10
 
-psX = 200
-psY = 100
+clock = pygame.time.Clock()
+
+speed = 18
+
+
 
 def gameLoop():
     gameOver = False
+    psX = wid/2
+    psY = 0
     while not gameOver:
         pygame.display.update()
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 gameOver = True
-        pygame.draw.rect(dis, red, [psX, psY, squareSz, squareSz])
-        pygame.draw.circle(dis, blue, (psX + 200, psY), circleRds)
+
+        
+        
+        
+        dis.fill(f.color("black"))
+        pygame.draw.rect(dis, f.color("red"), [psX, psY, squareSz, squareSz])
+        psY += speed
+
+
+        if psY > (hei - squareSz):
+            psY = hei - squareSz
+        if psY < 0:
+            psY = 0
+        if psX > (wid - squareSz):
+            psX = wid - squareSz
+        if psX < 0:
+            psX = 0
+
+        pygame.display.update()
+        clock.tick(speed)
     pygame.quit()
-    
 gameLoop()
